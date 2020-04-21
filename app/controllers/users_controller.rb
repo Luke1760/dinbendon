@@ -34,7 +34,8 @@ class UsersController < ApplicationController
   end
 
   def logout
-    session[:ccc9527] = nil
+    # session[:ccc9527] = nil
+    reset_session
     redirect_to root_path
   end
 

@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  # 要讓views可以用
+  helper_method :current_user, :curret_cart
+
   private
   def check_login
     redirect_to login_path unless current_user
@@ -19,5 +22,9 @@ class ApplicationController < ActionController::Base
 
   def current_user
     User.find_by(id: session[:ccc9527])
+  end
+
+  def curret_cart
+    @_ca123 ||= Cart.from_hash(session[:carty])
   end
 end

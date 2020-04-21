@@ -16,6 +16,11 @@ Rails.application.routes.draw do
       end
     end
   end
+  # cart
+  post "/abc/:id
+
+  resource :cart , only: [:index, :edit]
+  # 這裡的resource不使用複數(s)，是因為複數的話在網址上可以看到id
 
   # users
   get "/login", to: "users#login"
