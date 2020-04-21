@@ -1,8 +1,20 @@
 Rails.application.routes.draw do
+  root "items#index"
+  
   resources :categories
 
   resources :items do 
     resources :comments, only: [:create]
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :items, only:[] do
+        member do
+          post :favorite
+        end
+      end
+    end
   end
 
   # users
@@ -12,5 +24,5 @@ Rails.application.routes.draw do
   get "/sign_up", to: "users#sign_up"
   post "/sign_up", to: "users#registration"
 
-  root "items#index"
+
 end

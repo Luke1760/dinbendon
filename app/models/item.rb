@@ -5,7 +5,9 @@ class Item < ApplicationRecord
 
   has_many :comments
   belongs_to :category
-
+  
+  has_many :favorite_items
+  has_many :users, through: :favorite_items
   has_one_attached :cover
 
   default_scope { where(deleted_at: nil) }
