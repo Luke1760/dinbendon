@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_27_035935) do
+ActiveRecord::Schema.define(version: 2020_04_27_044418) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -90,16 +90,27 @@ ActiveRecord::Schema.define(version: 2020_04_27_035935) do
     t.index ["deleted_at"], name: "index_items_on_deleted_at"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "quantity"
+    t.integer "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "order_id"
+    t.index ["item_id"], name: "index_order_items_on_item_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string "order_num"
     t.string "receiver"
     t.string "phone"
     t.string "address"
     t.string "state"
-    t.string "note"
-    t.string "text"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -109,6 +120,8 @@ ActiveRecord::Schema.define(version: 2020_04_27_035935) do
     t.string "tel"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "nickname"
+    t.index ["nickname"], name: "index_users_on_nickname"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -118,4 +131,7 @@ ActiveRecord::Schema.define(version: 2020_04_27_035935) do
   add_foreign_key "favorite_items", "users"
   add_foreign_key "histories", "events"
   add_foreign_key "histories", "users"
+  add_foreign_key "order_items", "items"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "users"
 end
