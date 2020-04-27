@@ -1,26 +1,23 @@
 Rails.application.routes.draw do
   root "items#index"
-  
+
   resources :categories
 
   resources :items do 
+    member do
+      post :add_to_cart
+    end
+
     resources :comments, only: [:create]
   end
 
-  namespace :api do
-    namespace :v1 do
-      resources :items, only:[] do
-        member do
-          post :favorite
-        end
-      end
-    end
-  end
   # cart
-  post "/abc/:id
+  # post "/abc/:id", to: "cart#add", as: :cc
 
-  resource :cart , only: [:index, :edit]
-  # 這裡的resource不使用複數(s)，是因為複數的話在網址上可以看到id
+  resource :cart, only: [:show, :destroy]
+    # collection do
+    #   get :checkout
+    # end
 
   # users
   get "/login", to: "users#login"
@@ -29,5 +26,14 @@ Rails.application.routes.draw do
   get "/sign_up", to: "users#sign_up"
   post "/sign_up", to: "users#registration"
 
-
+  # APIs
+  namespace :api do
+    namespace :v1 do
+      resources :items, only: [] do
+        member do
+          post :favorite
+        end
+      end
+    end
+  end
 end

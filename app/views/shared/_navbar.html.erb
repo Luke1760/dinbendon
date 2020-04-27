@@ -26,16 +26,16 @@
     </ul>
 
     <% if current_user %>
-      日安，<%= current_user.email %>
     <ul class="navbar-nav">
       <li>
         <%= link_to cart_path, class: 'nav-link' do %>
-        購物車<i class="fas fa-shopping-cart"></i>
-        <%= current_cart.items.count %>
+          購物車 <i class="fas fa-shopping-cart"></i> 
+          <span id="items_count"><%= current_cart.items.count %></span>
         <% end %>
       </li>
-
-
+      <li>
+        <a href="#" class="nav-link">日安，<%= current_user.displayname %></a>
+      </li>
       <li class="nav-item">
         <%= link_to "登出", logout_path, method: 'delete', class: 'nav-link' %>
       </li>
@@ -43,4 +43,3 @@
     <% end %>
   </div>
 </nav>
-
